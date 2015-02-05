@@ -9,10 +9,10 @@ Delimitadores
  
 Expresiones Regulares
 id   [a-zA-Z][a-zA-Z0-9_]*
-cteI [0-9]+
-cteF [0-9]+\.[0-9]+
-cteS '".*"'
-diff <>
+cteI [0-9]+               
+cteF [0-9]+\.[0-9]+        
+cteS '".*"'               
+diff <>                  
  
 GRAMÁTICA
 <PROGRAMA>    ::= program id ';' <PROGRAMA2> <BLOQUE>

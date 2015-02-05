@@ -1,0 +1,1 @@
+program id; var beto int; { id = 1234; }

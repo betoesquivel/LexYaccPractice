@@ -1,0 +1,71 @@
+Lenguaje: MyDuck 2015
+ 
+TOKENS
+Palabras Reservadas
+program, if, else, print, var, int, float
+ 
+Delimitadores
+';', '{', '}', '<', '>', '+', '-', '*', '/', '(', ')', '='
+ 
+Expresiones Regulares
+id   [a-zA-Z][a-zA-Z0-9_]*
+cteI [0-9]+
+cteF [0-9]+\.[0-9]+
+cteS '".*"'
+diff <>
+ 
+GRAMÁTICA
+<PROGRAMA>    ::= program id ';' <PROGRAMA2> <BLOQUE>
+<PROGRAMA2>   ::= <VARS> | epsilon
+
+<VARS>        ::= var <VARS2>
+<VARS2>       ::= id <VARS3>
+<VARS3>       ::= ',' <VARS2>
+              |   ':' <TIPO> ';' <VARS4>
+<VARS4>   ::= <VARS2> | epsilon
+ 
+<TIPO>        ::= int | float
+ 
+<BLOQUE>      ::= '{' <BLOQUE2> '}'
+<BLOQUE2>     ::= <ESTATUTO> <BLOQUE2>
+              |   epsilon
+ 
+<ESTATUTO>    ::= <ASIGNACION>
+              |   <CONDICION>
+              |   <ESCRITURA>
+ 
+<ASIGNACION>  ::= id '=' <EXPRESION> ';'
+ 
+<EXPRESION>   ::= <EXP> <EXPRESION2>
+<EXPRESION2>  ::= '>'   <EXP>    
+              |   '<'   <EXP>
+              |   diff  <EXP>
+              |   epsilon
+ 
+<CONDICION>   ::= if '(' <EXPRESION> ')' <BLOQUE> <CONDICION2> ';'
+<CONDICION2>  ::= else <BLOQUE> 
+              |   epsilon
+ 
+<ESCRITURA>   ::= print '(' <ESCRITURA2> ')' ';'
+<ESCRITURA2>  ::= <EXPRESION> <ESCRITURA3>
+              |   CTES <ESCRITURA3>
+<ESCRITURA3>  ::= ',' <ESCRITURA2>
+              |   epsilon
+
+<EXP>         ::= <TERMINO> <EXP2>
+<EXP2>        ::= '+' <EXP>
+              |   '-' <EXP>
+              |   empty
+ 
+<TERMINO>     ::= <FACTOR> <TERMINO2>
+<TERMINO2>    ::= '*' <TERMINO>
+              |   '/' <TERMINO>
+              |   empty
+ 
+<FACTOR>      ::= '(' <EXPRESION> ')'
+              |   <FACTOR2>
+<FACTOR2>     ::= '+' <VARCTE>
+              |   '-' <VARCTE>
+              |   <VARCTE>
+ 
+<VARCTE>      ::= id |   cteI |   cteF
